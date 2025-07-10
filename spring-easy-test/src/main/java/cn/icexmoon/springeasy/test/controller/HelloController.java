@@ -1,5 +1,6 @@
 package cn.icexmoon.springeasy.test.controller;
 
+import cn.icexmoon.springeasy.util.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,11 @@ public class HelloController {
     @GetMapping("/msg")
     public String msg() {
         return "<h1>hello</h1>";
+    }
+
+    @GetMapping("/msg2")
+    public Result<String> msg2() {
+        return Result.success("hello", null);
     }
 
     @GetMapping("/void")

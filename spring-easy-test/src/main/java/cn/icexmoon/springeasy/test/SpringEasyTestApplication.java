@@ -19,9 +19,5 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class SpringEasyTestApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(SpringEasyTestApplication.class, args);
-//        String[] beanDefinitionNames = context.getBeanDefinitionNames();
-//        for (String beanDefinitionName : beanDefinitionNames) {
-//            System.out.println(beanDefinitionName);
-//        }
     }
 }

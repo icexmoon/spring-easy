@@ -1,6 +1,7 @@
 package cn.icexmoon.springeasy.boot;
 
 import cn.icexmoon.springeasy.util.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.MediaType;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
  * @Version 1.0
  */
 @ControllerAdvice
+@Slf4j
 public class ResultControllerAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
@@ -35,6 +37,7 @@ public class ResultControllerAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if (body instanceof String){
             // @RequestBody 返回 String 类型，不应该被包装
+            log.trace("{} 是 String 类型，不被包装", body);
             return body;
         }
         else if (body instanceof Result){

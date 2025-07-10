@@ -1,6 +1,7 @@
 logging:
   level:
-    cn.icexmoon.springeasy.boot: debug
+    cn.icexmoon.springeasy.boot: trace
+    org.springframework.web.servlet: trace
 spring-easy:
   boot-starter:
     wrap-result: true

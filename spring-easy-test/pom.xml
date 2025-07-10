@@ -6,11 +6,11 @@
     <parent>
         <groupId>cn.icexmoon</groupId>
         <artifactId>spring-easy-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0</version>
         <relativePath>../spring-easy-parent/pom.xml</relativePath>
     </parent>
     <artifactId>spring-easy-test</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <dependencies>

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.icexmoon</groupId>
     <artifactId>spring-easy-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <modules>
         <module>../spring-easy-test</module>
@@ -19,18 +19,24 @@
         <mybatis-plus.version>3.5.12</mybatis-plus.version>
         <mysql-connector-j.version>9.3.0</mysql-connector-j.version>
         <junit.version>5.13.3</junit.version>
+        <spring-easy.version>1.0.0</spring-easy.version>
     </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>cn.icexmoon</groupId>
                 <artifactId>spring-easy-boot-starter</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${spring-easy.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.icexmoon</groupId>
                 <artifactId>spring-easy-util</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${spring-easy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.icexmoon</groupId>
+                <artifactId>spring-easy-test</artifactId>
+                <version>${spring-easy.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>

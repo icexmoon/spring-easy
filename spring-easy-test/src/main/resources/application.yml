@@ -1,0 +1,16 @@
+logging:
+  level:
+    cn.icexmoon.springeasy.boot: debug
+spring-easy:
+  boot-starter:
+    wrap-result: true
+    wrap-error: true
+    time-converter: true
+    enum-converter: true
+    error-page-path: /servlet_error
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver

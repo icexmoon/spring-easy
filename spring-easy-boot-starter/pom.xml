@@ -10,6 +10,8 @@
         <relativePath>../spring-easy-parent/pom.xml</relativePath>
     </parent>
 
+    <name>spring-easy-boot-starter</name>
+
     <artifactId>spring-easy-boot-starter</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>

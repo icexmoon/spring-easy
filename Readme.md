@@ -10,6 +10,7 @@
 <dependency>
     <groupId>cn.icexmoon</groupId>
     <artifactId>spring-easy-boot-starter</artifactId>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -208,7 +209,7 @@ public class User {
     private String name;
 
     /**
-     * 性别 0 男，1 女
+     * 性别 5 男，6 女
      */
     private Sex sex;
 }
@@ -218,7 +219,40 @@ public class User {
 
 MyBatisPlus 实现了 Service 层和数据库的 IEnum 和 int 值的转换，但如果将 IEnum 类型的枚举用于控制器方法参数或返回值，就会被 Spring Boot 当做普通的枚举类型进行处理。
 
+本项目通过添加类型转换器和 jackson 编码器/解析器，实现了 int 和 IEnum 枚举的转换。
 
+## 关闭部分功能
+
+本项目默认开启所有功能，如果要关闭相关功能，可以通过配置文件：
+
+```yaml
+spring-easy:
+  boot-starter:
+    wrap-result: true
+    wrap-error: true
+    time-converter: true
+    enum-converter: true
+```
+
+相应的属性设置为 false 即可。需要更高程度的自由定制可以查看[源码](https://github.com/icexmoon/spring-easy/blob/main/spring-easy-boot-starter/src/main/java/cn/icexmoon/springeasy/boot/SpringEasyAutoConfiguration.java)后覆盖相应的 bean 定义。
+
+# 示例
+
+[spring-easy-test](https://github.com/icexmoon/spring-easy/tree/main/spring-easy-test) 是一个包含了所有功能的完整 Spring Boot 示例，展示了如何添加本项目以及使用相应功能。
+
+# 开源
+
+项目使用 Apache 2 许可证开源，仓库地址 [icexmoon/spring-easy](https://github.com/icexmoon/spring-easy)。
+
+# 反馈
+
+[Issues · icexmoon/spring-easy](https://github.com/icexmoon/spring-easy/issues)
+
+# 更新日志
+
+## 1.0.0
+
+发布
 
 
 

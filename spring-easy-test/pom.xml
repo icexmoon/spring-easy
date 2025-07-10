@@ -9,6 +9,7 @@
         <version>1.0.0</version>
         <relativePath>../spring-easy-parent/pom.xml</relativePath>
     </parent>
+    <name>spring-easy-test</name>
     <artifactId>spring-easy-test</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>

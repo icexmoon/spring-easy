@@ -7,6 +7,34 @@
     <artifactId>spring-easy-parent</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
+
+    <!-- 简介 -->
+    <description>利用 Spring Boot 自动配置提供基本功能</description>
+    <!-- 开发者信息 -->
+    <developers>
+        <developer>
+            <name>icexmoon</name>
+            <email>icexmoon@qq.com</email>
+            <organization>cn.icexmoon</organization>
+        </developer>
+    </developers>
+    <!-- 开源许可证 -->
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <!-- 版本控制仓库地址 -->
+    <scm>
+        <connection>scm:git:git@github.com:icexmoon/spring-easy.git</connection>
+        <developerConnection>scm:git:git@github.com:icexmoon/spring-easy.git</developerConnection>
+        <url>https://github.com/icexmoon/spring-easy</url>
+    </scm>
+    <name>spring-easy</name>
+    <url>http://maven.apache.org</url>
+
     <modules>
         <module>../spring-easy-test</module>
         <module>../spring-easy-boot-starter</module>
@@ -20,6 +48,7 @@
         <mysql-connector-j.version>9.3.0</mysql-connector-j.version>
         <junit.version>5.13.3</junit.version>
         <spring-easy.version>1.0.0</spring-easy.version>
+        <java-doc.version>3.6.3</java-doc.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -104,6 +133,69 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.7.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${java-doc.version}</version>
+                <configuration>
+                    <tags>
+                        <!-- 格式：name（标签名）, placement（适用位置）, description（可选描述） -->
+                        <tag>
+                            <name>Project</name>
+                            <placement>a</placement>
+                        </tag>
+                        <tag>
+                            <name>Package</name>
+                            <placement>a</placement>
+                        </tag>
+                    </tags>
+                    <doclint>none</doclint> <!-- 禁用严格语法检查 -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.7</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

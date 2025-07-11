@@ -12,5 +12,10 @@ import java.util.List;
 */
 public interface UserService extends IService<User> {
 
+    /**
+     * 获取指定性别的用户列表
+     * @param sex 性别
+     * @return 用户列表
+     */
     List<User> getUsers(User.Sex sex);
 }

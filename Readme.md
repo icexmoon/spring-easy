@@ -6,6 +6,8 @@
 
 # 安装
 
+使用 Maven 进行包管理，可以从中央仓库安装依赖：
+
 ```xml
 <dependency>
     <groupId>cn.icexmoon</groupId>
@@ -121,7 +123,30 @@ public Result<Void> defaultError() {
 
 控制台中会由`cn.icexmoon.springeasy.boot.ErrorControllerAdvice`输出相关异常信息日志，日志级别为`error`。
 
-业务层面产生的异常，比如缺少用户信息等，应当使用自定义异常 BusinessException，这个异常同样会被捕获并封装成统一格式返回，区别在于默认异常的 HTTP 状态码是 500，业务异常的 HTTP 状态码是 200。
+业务层面产生的异常，比如缺少用户信息等，应当使用自定义异常 [BusinessException](https://github.com/icexmoon/spring-easy/blob/main/spring-easy-util/src/main/java/cn/icexmoon/springeasy/util/BusinessException.java)，这个异常同样会被捕获并封装成统一格式返回，区别在于默认异常的 HTTP 状态码是 500，业务异常的 HTTP 状态码是 200。
+
+可以在任意需要返回业务错误的地方直接抛出 BusinessException，或者在需要的时候将其它类型的异常包装成业务异常抛出：
+
+```java
+@GetMapping("/business")
+public Result<Void> businessError() {
+    try {
+        int i = 1 / 0;
+    } catch (Throwable e) {
+        Map<String, ?> exceptionData = Map.of(
+                "cause", e,
+                "businessCode", "1001");
+        throw BusinessException.builder()
+                .cause(e)
+                .message(e.getMessage())
+                .data(exceptionData)
+                .build();
+    }
+    return Result.success();
+}
+```
+
+BusinessException 的 data 属性可以存放需要传递给前端的额外信息，它将被保存到 Result 对象的 data 属性后返回给前端。
 
 对于 Servlet 异常（比如 Filter 产生的），定义了一个控制器 [ServletErrorController](https://github.com/icexmoon/spring-easy/blob/main/spring-easy-boot-starter/src/main/java/cn/icexmoon/springeasy/boot/ServletErrorController.java) 进行处理，以同样的返回标准 Result。控制器方法中只会进行简单异常信息打印和控制台异常调用日志输出：
 
@@ -243,6 +268,13 @@ spring-easy:
 # 开源
 
 项目使用 Apache 2 许可证开源，仓库地址 [icexmoon/spring-easy](https://github.com/icexmoon/spring-easy)。
+
+项目代码结构为：
+
+- [spring-easy-boot-starter](https://github.com/icexmoon/spring-easy/tree/main/spring-easy-boot-starter)，Spring Boot 的自动配置相关
+- [spring-easy-parent](https://github.com/icexmoon/spring-easy/tree/main/spring-easy-parent)，Maven 依赖版本控制以及项目编译
+- [spring-easy-test](https://github.com/icexmoon/spring-easy/tree/main/spring-easy-test)，一个用于测试/示例的 Spring Boot Web 项目
+- [spring-easy-util](https://github.com/icexmoon/spring-easy/tree/main/spring-easy-util)，核心类，包含 jackson 解析器/编码器、Spring 类型转换器等
 
 # 反馈
 

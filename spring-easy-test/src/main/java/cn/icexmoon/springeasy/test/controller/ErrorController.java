@@ -19,12 +19,14 @@ import java.util.Map;
 @RequestMapping("/error")
 public class ErrorController {
     @GetMapping("/default")
+    @SuppressWarnings("all")
     public Result<Void> defaultError() {
         int i = 1 / 0;
         return Result.success();
     }
 
     @GetMapping("/business")
+    @SuppressWarnings("all")
     public Result<Void> businessError() {
         try {
             int i = 1 / 0;

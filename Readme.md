@@ -250,6 +250,63 @@ MyBatisPlus 实现了 Service 层和数据库的 IEnum 和 int 值的转换，�
 
 本项目通过添加类型转换器和 jackson 编码器/解析器，实现了 int 和 IEnum 枚举的转换。
 
+## Spring-Security
+
+> 使用本功能需要在 Spring 项目中引入 Redis 和数据库。
+
+可以快速整合 Spring Security，启用后可以通过以下接口登录：
+
+```http request
+POST api/auth/login
+```
+
+```json
+{
+    "username": "user",
+    "password": "password"
+}
+```
+
+```json
+{
+    "success": true,
+    "message": null,
+    "data": {
+        "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzcwOTcwODQyLCJleHAiOjE3NzA5NzI2NDJ9.rk70NCpF52GvSdfkl6gdkytjjOhHIUVv3Fg9dh0HUNZdd1R-GroY61gwn014S8gjjOMnZAvJ8WYnC7fNyMnH3g",
+        "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJjZjQ5ZjBjZi1lMzk2LTQ4NDMtYTkxNS1kMzQwYmU1NWViZjUiLCJzdWIiOiJ1c2VyIiwiaWF0IjoxNzcwOTcwODQyLCJleHAiOjE3NzEwNTcyNDJ9.odNECsKyJk5SSXWRWhJb-HlUV5Sfz1Kotuon2Kkm9K-5oqVNqqsnd5Fjag_q3_BFy5CtK_ghbifYor0oU1aXVw"
+    },
+    "errorCode": null
+}
+```
+
+响应中的`accessToken`是访问令牌，默认有效期半小时，`refreshToken`为刷新令牌，默认有效期24小时。
+
+可以通过以下接口刷新令牌：
+
+```http request
+POST api/auth/refresh
+```
+
+```json
+{
+    "refreshToken": "{{refreshToken}}"
+}
+```
+
+```json
+{
+    "success": true,
+    "message": null,
+    "data": {
+        "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzcwOTcxNzM3LCJleHAiOjE3NzA5NzM1Mzd9.sM5IHqYpUcZVVr4_xo9be7r9jmRkpvW5hRhWhcHuL79rMPp2wcxS8sj1RI41e4pu8ojBe1Y0WmPfgIJeOeDJzA",
+        "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIwYzgzYTc0Zi03MDIxLTQ3YzctODRmZi0wZDEyNDUzOWE0YWEiLCJzdWIiOiJ1c2VyIiwiaWF0IjoxNzcwOTcxNzM3LCJleHAiOjE3NzEwNTgxMzd9.nOR7ar5ZhCkxSoygHErRH4fDoPn6H_yqZcQI9-RkjmIF65fm7lZI4O8Q3ql9YnDWrpkEl4lYiBM1v0O5lGEcbQ"
+    },
+    "errorCode": null
+}
+```
+
+
+
 ## 关闭部分功能
 
 本项目默认开启所有功能，如果要关闭相关功能，可以通过配置文件：
@@ -261,6 +318,7 @@ spring-easy:
     wrap-error: true
     time-converter: true
     enum-converter: true
+    spring-security: true
 ```
 
 相应的属性设置为 false 即可。需要更高程度的自由定制可以查看[源码](https://github.com/icexmoon/spring-easy/blob/main/spring-easy-boot-starter/src/main/java/cn/icexmoon/springeasy/boot/SpringEasyAutoConfiguration.java)后覆盖相应的 bean 定义。
@@ -279,6 +337,7 @@ spring-easy:
 - [spring-easy-parent](https://github.com/icexmoon/spring-easy/tree/main/spring-easy-parent)，Maven 依赖版本控制以及项目编译
 - [spring-easy-test](https://github.com/icexmoon/spring-easy/tree/main/spring-easy-test)，一个用于测试/示例的 Spring Boot Web 项目
 - [spring-easy-util](https://github.com/icexmoon/spring-easy/tree/main/spring-easy-util)，核心类，包含 jackson 解析器/编码器、Spring 类型转换器等
+- [spring-easy-security](https://github.com/icexmoon/spring-easy/tree/main/spring-easy-security)，spring-security 相关
 
 # 反馈
 

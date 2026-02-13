@@ -16,11 +16,13 @@ public class Result<T> {
     private final boolean success;
     private final String message;
     private final T data;
+    private final String errorCode;
 
-    private Result(boolean success, String message, T data) {
+    private Result(boolean success, String message, T data, String errorCode) {
         this.success = success;
         this.message = message;
         this.data = data;
+        this.errorCode = errorCode;
     }
 
     public static <D> Result<D> success(D data) {
@@ -28,11 +30,11 @@ public class Result<T> {
     }
 
     public static <D> Result<D> success(D data, String message) {
-        return new Result<>(true, message, data);
+        return new Result<>(true, message, data, null);
     }
 
     public static Result<Void> success(String message) {
-        return new Result<>(true, message, null);
+        return new Result<>(true, message, null, null);
     }
 
     public static Result<Void> success() {
@@ -48,6 +50,14 @@ public class Result<T> {
     }
 
     public static <D> Result<D> fail(D data, String message) {
-        return new Result<>(false, message, data);
+        return new Result<>(false, message, data, null);
+    }
+
+    public static <D> Result<D> fail(D data, String message, String errorCode){
+        return new Result<>(false, message, data, errorCode);
+    }
+
+    public static Result<Void> fail(String errorCode, String message){
+        return new Result<>(false, message, null, errorCode);
     }
 }

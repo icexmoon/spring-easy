@@ -8,10 +8,18 @@ spring-easy:
     wrap-error: true
     time-converter: true
     enum-converter: true
+    spring-security: true
     error-page-path: /servlet_error
+  jwt:
+    expiration-ms: 1800000
+    refresh-token-expiration-hours: 24
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/test
     username: root
     password: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: localhost
+      port: 6379

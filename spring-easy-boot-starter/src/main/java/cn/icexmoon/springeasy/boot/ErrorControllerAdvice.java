@@ -34,14 +34,18 @@ public class ErrorControllerAdvice {
 
     /**
      * 业务异常处理
-     * @param e
+     * @param ex
      * @param response
      * @return
      */
     @ExceptionHandler
     @ResponseBody
-    public Result<Object> businessExceptionHandler(BusinessException e, HttpServletResponse response) {
-        log.error(e.getMessage(), e);
-        return Result.fail(e.getData(), e.getMessage());
+    public Result<Object> businessExceptionHandler(BusinessException ex, HttpServletResponse response) {
+        log.error("handleBusinessException: {}", ex.getMessage(), ex);
+        // 如果异常指定了HTTP状态码，重写响应状态码
+        if (ex.getHttpStatusCode() != null){
+            response.setStatus(ex.getHttpStatusCode());
+        }
+        return Result.fail(ex.getData(), ex.getMessage(), ex.getCode());
     }
 }

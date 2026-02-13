@@ -1,11 +1,14 @@
 package cn.icexmoon.springeasy.boot;
 
+import cn.icexmoon.springeasy.security.SecurityAutoConfiguration;
 import cn.icexmoon.springeasy.util.converter.Str2EnumConverterFactory;
 import cn.icexmoon.springeasy.util.jackson.IEnumJsonSerializer;
 import cn.icexmoon.springeasy.util.jackson.IEnumModule;
+import cn.icexmoon.springeasy.util.properties.SpringEasyConfigurationProperties;
 import com.baomidou.mybatisplus.annotation.IEnum;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -14,7 +17,9 @@ import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.ErrorPageRegistrar;
 import org.springframework.boot.web.server.ErrorPageRegistry;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -146,9 +151,16 @@ public class SpringEasyAutoConfiguration {
          * @return
          */
         @Bean
-        @ConditionalOnMissingBean
+        @ConditionalOnMissingBean(IEnumModule.class)
         public IEnumModule iEnumModule() {
             return new IEnumModule();
         }
+    }
+
+    @Configuration
+    @ConditionalOnBooleanProperty(name = "spring-easy.boot-starter.spring-security", havingValue = true, matchIfMissing = true)
+    @Import(SecurityAutoConfiguration.class)
+    public static class SpringSecurityAutoConfiguration{
+
     }
 }

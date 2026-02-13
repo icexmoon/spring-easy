@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Slf4j
 public class ServletErrorController {
 
-    @RequestMapping("#{@'spring-easy-cn.icexmoon.springeasy.boot.SpringEasyConfigurationProperties'.bootStarter.errorPagePath}")
+    @RequestMapping("#{@'spring-easy-cn.icexmoon.springeasy.util.properties.SpringEasyConfigurationProperties'.bootStarter.errorPagePath}")
     @ResponseBody
     public Result<?> error(HttpServletRequest request) {
         Throwable error = (Throwable) request.getAttribute((RequestDispatcher.ERROR_EXCEPTION));

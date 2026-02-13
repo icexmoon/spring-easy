@@ -330,7 +330,7 @@ Authorization: Bearer {{token}}
 
 SpringSecurity 的 HTTP 路径权限设定如下：
 
-```json
+```java
 public SecurityFilterChain filterChain(HttpSecurity http,
     CustomAccessDeniedHandler customAccessDeniedHandler,
     JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) throws Exception {

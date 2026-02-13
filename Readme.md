@@ -305,7 +305,41 @@ POST api/auth/refresh
 }
 ```
 
+本功能的用户-角色-权限模型依赖三张表：
 
+- [se_role_autority](https://github.com/icexmoon/spring-easy/blob/main/spring-easy-test/src/main/resources/sql/se_role_authority.sql)
+- [se_user](https://github.com/icexmoon/spring-easy/blob/main/spring-easy-test/src/main/resources/sql/se_user.sql)
+- [se_user_authority](https://github.com/icexmoon/spring-easy/blob/main/spring-easy-test/src/main/resources/sql/se_user_authority.sql)
+
+用户可以直接和具体权限绑定，也可以和角色绑定，角色再和具体权限绑定。
+
+SpringSecurity 的 HTTP 路径权限设定如下：
+
+```json
+public SecurityFilterChain filterChain(HttpSecurity http,
+    CustomAccessDeniedHandler customAccessDeniedHandler,
+    JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) throws Exception {
+    http
+    .csrf((csrf) -> csrf.disable())// 通常JWT无状态应用可禁用CSRF
+    .sessionManagement((session) -> session
+    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 无状态会话
+    .authorizeHttpRequests(authorize -> authorize
+    .requestMatchers("/api/auth/**","/error").permitAll() // 登录注册公开
+    .requestMatchers("/admin/**").hasRole("ADMIN") // 管理员可访问
+    .anyRequest().authenticated() // 其他请求需认证
+    )
+    .exceptionHandling((exception) ->
+    exception
+    .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+    .accessDeniedHandler(customAccessDeniedHandler)
+    )
+    .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // 添加JWT过滤器
+    log.debug("SecurityFilterChain 已加载");
+    return http.build();
+}
+```
+
+可以重写 [`SecurityFilterChain`](https://github.com/icexmoon/spring-easy/blob/main/spring-easy-security/src/main/java/cn/icexmoon/springeasy/security/config/SecurityConfig.java) Bean 改变这一行为。
 
 ## 关闭部分功能
 

@@ -252,7 +252,22 @@ MyBatisPlus 实现了 Service 层和数据库的 IEnum 和 int 值的转换，�
 
 ## Spring-Security
 
-> 使用本功能需要在 Spring 项目中引入 Redis 和数据库。
+本功能默认关闭，需要在配置中开启：
+
+```yaml
+spring-easy:
+  boot-starter:
+    spring-security: true
+```
+
+使用本功能需要在 Spring 项目中引入 Redis 和数据库。并且添加 spring-security 依赖：
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+```
 
 可以快速整合 Spring Security，启用后可以通过以下接口登录：
 
@@ -358,7 +373,7 @@ public SecurityFilterChain filterChain(HttpSecurity http,
 
 ## 关闭部分功能
 
-本项目默认开启所有功能，如果要关闭相关功能，可以通过配置文件：
+本项目默认开启大部分功能，如果要开启/关闭相关功能，可以通过配置文件：
 
 ```yaml
 spring-easy:

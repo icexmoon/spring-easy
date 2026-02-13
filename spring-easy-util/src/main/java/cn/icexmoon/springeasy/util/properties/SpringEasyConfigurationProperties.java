@@ -19,7 +19,7 @@ public class SpringEasyConfigurationProperties {
         private boolean wrapError = true;
         private boolean timeConverter = true;
         private boolean enumConverter = true;
-        private boolean springSecurity = true;
+        private boolean springSecurity = false;
         private String errorPagePath = "/error";
     }
     @Data

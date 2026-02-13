@@ -281,6 +281,15 @@ POST api/auth/login
 
 响应中的`accessToken`是访问令牌，默认有效期半小时，`refreshToken`为刷新令牌，默认有效期24小时。
 
+可以通过配置修改令牌的有效时间：
+
+```yaml
+spring-easy:
+  jwt:
+    expiration-ms: 1800000 # 访问令牌有效时间（毫秒）
+    refresh-token-expiration-hours: 24 # 刷新令牌有效时间（小时） 
+```
+
 可以通过以下接口刷新令牌：
 
 ```http request
@@ -303,6 +312,12 @@ POST api/auth/refresh
     },
     "errorCode": null
 }
+```
+
+访问需要登录的受保护资源，可以在请求头中添加：
+
+```http request
+Authorization: Bearer {{token}}
 ```
 
 本功能的用户-角色-权限模型依赖三张表：
@@ -382,6 +397,10 @@ spring-easy:
 ## 1.0.0
 
 发布
+
+## 1.1.0
+
+增加 Spring-Security 整合功能
 
 
 
